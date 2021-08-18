@@ -1,6 +1,6 @@
 import {MediaPackage} from "@aws-sdk/client-mediapackage";
 import {CloudWatchEvents} from "@aws-sdk/client-cloudwatch-events";
-import {endTime, startTime, id, originEndpointId, S3Dest} from "./Input";
+import {harvest_info, aws_account} from "./Input";
 
 const mediapackage = new MediaPackage({region: "ap-southeast-2"});
 const cloudwatch = new CloudWatchEvents({region: "ap-southeast-2"})
@@ -9,11 +9,11 @@ var harvestJobStatus;
 var ruleARN;
 
 var MPparams = {                                                         //paramaeters for Harvest Job
-    EndTime: endTime,
-    Id: id,
-    OriginEndpointId: originEndpointId,
-    S3Destination: S3Dest,
-    StartTime: startTime
+    EndTime: harvest_info.endTime,
+    Id: harvest_info.id,
+    OriginEndpointId: harvest_info.originEndpointId,
+    S3Destination: harvest_info.S3Dest,
+    StartTime: harvest_info.startTime
 };
  
 mediapackage.createHarvestJob(MPparams, function(err,data){
@@ -26,7 +26,7 @@ var CWparams = {
     EventPattern: {
         "detail-type": "MediaPackage HarvestJob Notification",
         "source": "aws.mediapackage",
-        "account": "392705783171",
+        "account": aws_account,
         "region": "ap-southeast-2",
         "detail":{
            "harvest_job": {
