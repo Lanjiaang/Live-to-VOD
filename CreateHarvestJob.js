@@ -26,7 +26,7 @@ var CWparams = {
     EventPattern: {
         "detail-type": "MediaPackage HarvestJob Notification",
         "source": "aws.mediapackage",
-        "account": "THE CUSTOMER AWS ACCOUNT ID",
+        "account": "392705783171",
         "region": "ap-southeast-2",
         "detail":{
            "harvest_job": {
